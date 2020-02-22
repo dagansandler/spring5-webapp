@@ -6,12 +6,11 @@ import io.github.dagansandler.spring5webapp.model.Publisher;
 import io.github.dagansandler.spring5webapp.repositories.AuthorRepository;
 import io.github.dagansandler.spring5webapp.repositories.BookRepository;
 import io.github.dagansandler.spring5webapp.repositories.PublisherRepository;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> {
+public class DevBootstrap implements CommandLineRunner {
 
     private AuthorRepository authorRepository;
 
@@ -25,8 +24,9 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         this.publisherRepository = publisherRepository;
     }
 
+
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+    public void run(String... args) {
         initData();
     }
 
@@ -51,6 +51,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
+        System.out.println("Books in Repository: " + bookRepository.count());
+        System.out.println("Authors in Reposistory: " + authorRepository.count());
     }
 
 }

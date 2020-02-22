@@ -2,6 +2,7 @@ package io.github.dagansandler.spring5webapp.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -14,7 +15,7 @@ public class Book {
     private String title;
     private String isbn;
 
-    @OneToOne
+    @ManyToOne
     private Publisher publisher;
 
     @ManyToMany
@@ -84,7 +85,7 @@ public class Book {
 
         Book book = (Book) o;
 
-        return id != null ? id.equals(book.id) : book.id == null;
+        return Objects.equals(id, book.id);
     }
 
     @Override
